@@ -19,10 +19,12 @@ import {waitFakeTimer} from '../../utils/util'
 
 beforeEach(() => {
     document.body.innerHTML = '';
+    // 使用 useFakeTimers 可以创建一个虚拟的定时器环境，并且可以在测试中控制时间的流逝，或者让所有的定时器立即执行。
     jest.useFakeTimers();
 });
 
 afterAll(() => {
+    // jest.useRealTimers() 可以用于恢复原生定时器函数。
     jest.clearAllTimers();
     jest.useRealTimers();
 });
