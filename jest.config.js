@@ -2,7 +2,14 @@ module.exports = {
     preset: 'ts-jest',
     testEnvironment: 'jsdom',
 
+    // setupFiles 是 Jest 的一种配置选项，用于在运行测试之前执行一些全局的初始化操作。可以使用该选项配置一个 JavaScript 文件列表，Jest会在执行测试之前自动地将这些文件中的代码插入到测试环境中，从而保证初始化操作被正确执行。
+    setupFiles: ['./tests/setup.js'],
+
     // setupFilesAfterEnv: ['./tests/setup-tests.js'],
+    // setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
+    // setupFilesAfterEnv: [
+    //     "<rootDir>/setupEnzyme.ts" // 文件路径根据你的项目而定
+    // ],
 
     // 匹配的测试文件
     testMatch: ['**/__tests__/**/*.test.[jt]s?(x)'],
@@ -54,6 +61,6 @@ module.exports = {
             pageSize: 10,
             maxDepth: 99
         }]
-    ]
+    ],
 };
   

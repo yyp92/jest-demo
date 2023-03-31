@@ -1,3 +1,5 @@
+import { render, act } from '@testing-library/react';
+
 // 审批状态
 export const getApprovalStatus = (status?: string) => {
     const map: any = {
@@ -34,4 +36,20 @@ export const getApprovalStatus = (status?: string) => {
     }
   
     return status && map?.[status] ? map[status] : null
+}
+
+export async function waitFakeTimer(advanceTime = 1000, times = 20) {
+    for (let i = 0; i < times; i += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        await act(async () => {
+            await Promise.resolve();
+    
+            if (advanceTime > 0) {
+                jest.advanceTimersByTime(advanceTime);
+            }
+            else {
+                jest.runAllTimers();
+            }
+        });
+    }
 }
