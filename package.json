@@ -6,8 +6,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "jest",
-    "test:debug": "jest"
+    "test": "jest"
   },
   "dependencies": {
     "antd": "^5.3.3",

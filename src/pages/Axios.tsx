@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 
-export default function MyComponent() {
+export default function AxiosComponent() {
     const [data, setData] = useState<any[]>([]);
 
     useEffect(() => {

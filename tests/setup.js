@@ -6,27 +6,34 @@ const util = require('util');
  * 
  * https://jestjs.io/zh-Hans/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
  */
-
 /* eslint-disable global-require */
 if (typeof window !== 'undefined') {
-  global.window.resizeTo = (width, height) => {
-    global.window.innerWidth = width || global.window.innerWidth;
-    global.window.innerHeight = height || global.window.innerHeight;
-    global.window.dispatchEvent(new Event('resize'));
-  };
-  global.window.scrollTo = () => {};
-  // ref: https://github.com/ant-design/ant-design/issues/18774
-  if (!window.matchMedia) {
-    Object.defineProperty(global.window, 'matchMedia', {
-      writable: true,
-      configurable: true,
-      value: jest.fn((query) => ({
-        matches: query.includes('max-width'),
-        addListener: jest.fn(),
-        removeListener: jest.fn(),
-      })),
-    });
-  }
+    global.window.resizeTo = (width, height) => {
+        global.window.innerWidth = width || global.window.innerWidth;
+        global.window.innerHeight = height || global.window.innerHeight;
+        global.window.dispatchEvent(new Event('resize'));
+    };
+    global.window.scrollTo = () => {};
+    // ref: https://github.com/ant-design/ant-design/issues/18774
+    if (!window.matchMedia) {
+        Object.defineProperty(global.window, 'matchMedia', {
+        writable: true,
+        configurable: true,
+        value: jest.fn((query) => ({
+            matches: query.includes('max-width'),
+            addListener: jest.fn(),
+            removeListener: jest.fn(),
+        })),
+        });
+    }
+
+    if (!window.fetch) {
+        Object.defineProperty(global.window, 'fetch', {
+            writable: true,
+            configurable: true,
+            value: jest.fn((query) => Promise.resolve()),
+        });
+    }
 
     // Fix css-animation or rc-motion deps on these
     // https://github.com/react-component/motion/blob/9c04ef1a210a4f3246c9becba6e33ea945e00669/src/util/motion.ts#L27-L35
